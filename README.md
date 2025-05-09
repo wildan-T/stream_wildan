@@ -39,3 +39,13 @@ Method digunakan untuk memasukkan error ke dalam stream menggunakan sink.addErro
 
 2. Langkah 15
 Method memanggil addError() dari numberStream, yang berarti mengirim error ke dalam stream.
+
+## Praktikum 3
+### Soal 8
+![Capture soal 8](assets/stream3.gif)
+
+1. Langkah 1
+late artinya variabel transformer akan diinisialisasi nanti sebelum digunakan. StreamTransformer adalah objek yang bisa mengubah isi stream sebelum dikonsumsi oleh listen.
+
+2. Langkah 3
+Menerapkan transformasi ke stream. Output dari stream yang ditransformasi akan berbeda sesuai logika transformer tersebut.
