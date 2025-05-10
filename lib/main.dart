@@ -28,6 +28,8 @@ class StreamHomePage extends StatefulWidget {
 }
 
 class _StreamHomePageState extends State<StreamHomePage> {
+  late StreamSubscription subscription2;
+  String values = '';
   late StreamSubscription subscription;
   late StreamTransformer transformer;
   int lastNumber = 0;
@@ -60,12 +62,23 @@ class _StreamHomePageState extends State<StreamHomePage> {
     );
     numberStream = NumberStream();
     numberStreamController = numberStream.controller;
-    Stream stream = numberStreamController.stream;
+    Stream stream = numberStreamController.stream.asBroadcastStream();
+    // Stream stream = numberStreamController.stream;
     subscription = stream.listen((event) {
       setState(() {
-        lastNumber = event;
+        values += '$event - ';
       });
     });
+    subscription2 = stream.listen((event) {
+      setState(() {
+        values += '$event - ';
+      });
+    });
+    // subscription = stream.listen((event) {
+    //   setState(() {
+    //     lastNumber = event;
+    //   });
+    // });
     subscription.onError((error) {
       setState(() {
         lastNumber = -1;
@@ -139,6 +152,7 @@ class _StreamHomePageState extends State<StreamHomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Text(values),
             Text(lastNumber.toString()),
             ElevatedButton(
               onPressed: () => addRandomNumber(),
